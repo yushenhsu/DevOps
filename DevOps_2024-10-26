@@ -27,3 +27,6 @@ hard: 將異動刪除
 commit ID:
 可以給指定的 ID
 也可以給 HEAD^ 表示往前 reset 一個 commit，^ 的數量代表往前幾個
+
+git revert <commit id>: 取消指定 commit 的操作，如果不想被詢問 commit 訊息可以加上 --no-edit 參數
+git commit --amend -m "New message": 編輯最新的 commit 的訊息
