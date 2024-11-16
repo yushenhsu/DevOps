@@ -1,4 +1,6 @@
 2024/10 勞教產投 DevOps 入門班
+課程範例與操作過程請參考 GitHub 連結：https://github.com/labu8712/devops-class-1026
+
 10/26
 指令
 pwd: 顯示目前工作目錄
@@ -27,6 +29,607 @@ hard: 將異動刪除
 commit ID:
 可以給指定的 ID
 也可以給 HEAD^ 表示往前 reset 一個 commit，^ 的數量代表往前幾個
-
 git revert <commit id>: 取消指定 commit 的操作，如果不想被詢問 commit 訊息可以加上 --no-edit 參數
 git commit --amend -m "New message": 編輯最新的 commit 的訊息
+上課圖片
+Git 工作區說明
+
+
+Git revert 白板圖
+
+
+參考連結
+Gitignore Template: https://github.com/github/gitignore
+
+11/02
+Git 指令
+git push: 將本地端的變更同步到遠端
+第一次的時候會需要 git push -u <remote name> <branch name> 做綁定，後續只需單純的 git push 即可
+git clone <url>: 從雲端完整下載 repo 到本地端
+git pull: 將遠端的變更同步到本地端
+git fetch: 將遠端的變更同步到本地端（但不將現在所在的 commit 移動到最新下載的 commit）
+git checkout -b <branch name>: 建立新的分支並切換
+git checkout <branch name>: 切換到指定分支
+git branch: 列出目前所有分支
+git merge <branch name>: 將分支合併到目前所在的點
+如果不想編輯訊息可以加上 --no-edit 參數
+指令
+ls <路徑>: 列出檔案與資料夾，如果路徑省略代表當前資料夾
+
+-a 參數代表列出隱藏檔
+-l 參數代表用條列方式顯示
+cd <路徑>: 切換工作目錄
+
+特殊路徑：
+. 代表當前目錄
+.. 代表上一層目錄
+~ 代表家目錄
+- 代表上一個所在的目錄
+mkdir <路徑>：建立新目錄
+
+mkdir <new_folder>：建立一個名為 new_folder 的資料夾
+mkdir -p <path/to/directory>：遞迴建立資料夾結構
+rm <路徑>：刪除檔案或目錄
+
+rm <filename>：刪除檔案
+rm -r <directory>：遞迴刪除資料夾及其中的所有內容。
+rm -i <filename>：刪除檔案前會詢問確認
+rm -f <filename>：強制刪除資料夾不詢問
+cat：查看檔案內容
+
+cat <filename>：顯示整個檔案內容
+less：分頁顯示檔案內容（適合大檔案）。
+
+less <filename>：使用 ↑、↓ 捲動，q 退出。
+head 和 tail：查看檔案開頭或結尾的數行
+
+head -n 10 <filename>：顯示前 10 行
+tail -n 10 <filename>：顯示最後 10 行
+tail -f <filename>：即時查看檔案更新內容（適用於日誌檔）
+cp：複製檔案或目錄
+
+cp <source_file> <target_file>：複製檔案
+cp -r <source_directory> <target_directory>：遞迴複製目錄
+mv：移動或重新命名檔案/目錄
+
+mv <old_name> <new_name>：重新命名檔案或資料夾
+mv <file> </path/to/new_location>：移動檔案至指定位置
+whoami：顯示當前使用者名稱
+
+uname：顯示系統相關資訊
+
+uname -a：顯示系統的詳細資訊
+uname -r：顯示核心版本
+df：檢視磁碟空間使用情況
+
+df -h：顯示人類可讀的大小單位
+du：檢視目錄大小
+
+du -sh <directory_name>：顯示資料夾大小
+chmod：更改檔案或目錄的權限
+
+chmod <755> <filename>：設定檔案權限
+chmod <+x> <script.sh>：賦予腳本執行權限
+touch：更新檔案時間或建立空白檔案
+
+touch <filename>：如果檔案不存在建立新的檔案，若存在則更新檔案時間戳
+chown：更改檔案或目錄的擁有者
+
+chown <user>:<group> <filename>：改變擁有者和群組
+chown -R <user>:<group> <filename>：遞迴改變擁有者和群組
+ps：查看當前執行的程序
+
+ps aux：顯示所有程序的詳細資訊
+grep：搜尋檔案中特定字串
+
+grep <"pattern"> <filename>：搜尋文件中包含 pattern 的行
+grep -i <"pattern"> <filename>：不分大小寫搜尋
+sed：用於文字替換或處理
+
+sed <'s/old/new/g'> <filename>：將 old 替換為 new
+sed -i <'s/old/new/g'> <filename>：將 old 替換為 new，並寫入檔案中
+awk：用於檔案內容的列處理。
+
+awk <'{print $1}'> <filename>：顯示每行的第一列
+awk <'{print $1, $2}'> <filename>：顯示每行的第一列和第二列
+tar：壓縮和解壓縮檔案
+
+tar -czvf <archive.tar.gz> <directory/>：壓縮目錄
+tar -xzvf <archive.tar.gz>：解壓縮檔案
+重新定向與管道操作
+> 將指令的標準輸出重定向至指定的檔案，若檔案已存在則覆蓋其內容，若檔案不存在則創建。
+
+範例：
+
+echo "Hello, World!" > output.txt
+執行後，output.txt 會包含 "Hello, World!"。若檔案已存在，原內容會被覆蓋。
+
+>> 會將指令的標準輸出追加到檔案末尾，若檔案不存在則創建。
+
+範例：
+
+echo "New Line" >> output.txt
+此指令會將 "New Line" 追加到 output.txt 的最後一行，且不會覆蓋原內容。
+
+| 將前一個指令的標準輸出傳遞給下一個指令的標準輸入，實現指令串接。
+
+範例：
+
+ls -l | grep ".txt"
+其他技巧
+touch ok{1..10}.txt 可以一次建立多個檔案。
+
+Shell Script 練習
+印出 Hello World
+
+
+
+#!/bin/bash
+
+echo "Hello World"
+白板圖
+Merge
+
+
+Squash Merge
+
+
+Rebase
+
+
+Pull rebase
+
+
+Git Flow
+
+
+11/09
+指令
+export <var name>=<var value>：宣告環境變數
+unset <var name>：取消宣告環境變數
+
+Shell script
+讀取使用者輸入
+
+
+
+#!/bin/bash
+
+read -p "Enter you branch: " branch
+echo $branch
+if 判斷
+
+
+
+
+
+
+
+
+
+#!/bin/bash
+
+read -p "Enter you branch: " branch
+if [ "$branch" == "main" ] || [ "$branch" == "master" ]; then
+    echo "This is production"
+elif [ "$branch" == "develop" ]; then
+    echo "This is develop"
+else
+    echo "Unknwon branch"
+fi
+變數的預設值
+
+
+
+
+
+#!/bin/bash
+
+echo "Hello ${username:-default}"
+
+username=user01
+echo "Hello ${username:-default}"
+判斷檔案是否存在
+
+
+
+
+
+
+#!/bin/bash
+
+if [ -d f1 ] && [ -f a.txt ]; then
+    echo "Yes"
+else
+    echo "No"
+fi
+判斷指令的執行是否成功
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#!/bin/bash
+
+mkdir f2/f3
+
+if [ $? -eq 0 ]; then
+    echo "成功"
+else
+    echo "失敗"
+fi
+
+echo "=========="
+
+mkdir -p f2/f3
+
+if [ $? -eq 0 ]; then
+    echo "成功"
+else
+    echo "失敗"
+fi
+for 迴圈
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#!/bin/bash
+
+for i in {1..5}; do
+    echo $i
+done
+
+echo "=========="
+
+for i in a b c d e f g; do
+    echo $i
+done
+
+echo "=========="
+
+for i in `ls`; do
+    echo $i
+done
+Shell script 數字比較
+-eq：等於（==）
+-ne：不等於（!=）
+-gt：大於（>）
+-lt：小於（<）
+-ge：大於或等於（>=）
+-le：小於或等於（<=）
+while/until 迴圈
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#!/bin/bash
+
+count=1
+while [ $count -le 5 ]; do
+    echo "Count: ${count}"
+    count=$((count + 1))
+done
+
+echo "=========="
+
+count=1
+until [ $count -gt 5 ]; do
+    echo "Count ${count}"
+    count=$((count+1))
+done
+快捷鍵
+
+
+ctrl+p: 等同方向鍵向上
+ctrl+n: 等同方向鍵向下
+ctrl+r: 搜尋前面打過的指令
+ctrl+l: 清理螢幕
+ctrl+c: 取消
+Vim 指令
+移動
+h, j, k, l：左、下、上、右移動游標
+0：移到行首
+$：移到行尾
+w：跳到下一個單詞開頭
+b：跳到上一個單詞開頭
+f<char>：跳到下一個指定字
+t<char>：跳到下一個指定字前
+;：重複上一次 f 或 t 的操作方向
+,：反向重複上一次 f 或 t 的操作方向
+插入模式
+i：在游標前插入
+a：在游標後插入
+o：在下一行插入新行
+Esc：返回普通模式
+基本編輯
+x：刪除當前字元
+d：刪除選中的內容
+c：變更選中的內容
+dd：刪除整行
+u：取消
+Ctrl + r：重做
+視覺模式
+v：進入字符視覺模式
+V：進入行視覺模式
+Ctrl + v：進入塊視覺模式（列選擇）
+複製與貼上
+y：複製選中的內容
+p：在游標後貼上
+yy：複製當前行
+多檔案管理
+:e filename：打開或切換檔案
+:w：儲存當前檔案
+:q：退出
+:wq：儲存並退出
+搜尋與取代
+/pattern：搜尋字串
+:s/old/new/g：取代當前行中的字串
+:%s/old/new/g：全檔案取代字串
+標記
+m[a-z]：設定標記
+'[a-z]：跳到標記位置行開頭
+`[a-z]：跳到標記位置
+:marks：列出所有標記
+Docker
+
+圖片來源：https://www.docker.com/resources/what-container/
+
+Docker 指令
+基礎指令
+
+docker --version：查看 Docker 版本
+docker info：檢視 Docker 系統資訊
+docker help：顯示 Docker 的指令幫助資訊
+image 操作
+
+docker image pull <image> or docker pull：從 Docker Hub 拉取映像檔
+docker image ls or docker images：列出本地的映像檔
+docker image rm <image> or docker rmi <image>：刪除本地的映像檔
+docker build -t <name> .：從 Dockerfile 建立自定義映像檔
+docker tag <image> <new_tag>：為映像檔添加標籤
+docker push <image>：推送映像檔到 Docker Hub（需登入）
+容器操作
+
+docker run <image>：運行容器
+-d：在後台運行容器
+-it：進入交互模式
+--name <name>：為容器命名
+-p <host_port>:<container_port>：設定 port 對應
+--rm：容器執行結束後直接刪除
+docker ps：列出正在運行的容器
+-a：列出所有容器
+docker stop <container>：停止容器
+docker start <container>：啟動已停止的容器
+docker restart <container>：重啟容器
+docker rm <container>：刪除容器
+-f：強制刪除
+docker logs <container>：查看容器日誌
+-f：使用串流的方式
+docker exec -it <container> <command>：進入運行中的容器並執行指令
+網路與 volume（資料卷）
+
+docker network ls：列出所有網路
+docker network create <network_name>：創建網路
+docker network rm <network_name>：刪除網路
+docker volume ls：列出資料卷
+docker volume create <volume_name>：建立資料卷
+docker volume rm <volume_name>：刪除資料卷
+docker run -v <volume_name>:<container_path>：將資料卷掛載到容器
+除錯及系統管理
+
+docker inspect <id>：查看資源的詳細資料
+docker stats：檢視容器資源使用情況
+docker top <container>：查看容器中正在運行的詳細情況
+docker save -o <filename.tar> <image> 和 docker load -i <filename.tar>：匯入匯出映像檔
+Docker Compose
+
+docker compose up：根據 docker-compose.yml 檔案啟動多個容器
+-d 背景執行
+docker compose down：停止並移除容器
+-v 一起移除 volume
+docker compose logs：查看 Docker Compose 日誌
+Docker compose
+Nginx
+nginx/docker-compose.yml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+services:
+  server1:
+    image: nginx:1.27
+    ports:
+      - 8080:80
+    volumes:
+      - data:/srv/mydata
+      - ./hello.html:/usr/share/nginx/html/index.html:ro
+
+  server2:
+    image: nginx:1.27
+    ports:
+      - 8088:80
+    volumes:
+      - data:/srv/mydata
+
+volumes:
+  data:
+nginx/hello.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+</head>
+<body>
+    <h1>Hello World!!!</h1>
+    <h1>okokok</h1>
+    <h1>koko</h1>
+    <h1>kokoko</h1>
+    <h1>okokok</h1>
+    <h1>okokok</h1>
+</body>
+</html>
+Wordpress
+wordpress/docker-compose.yml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+services:
+  server:
+    image: wordpress:6.6.2
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_NAME: wp
+    volumes:
+      - server_data:/var/www/html
+    depends_on:
+      - db
+  
+  db:
+    image: mysql:8.4.3
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: wp
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  server_data:
+  db_data:
+wordpress/.env
+
+
+MYSQL_ROOT_PASSWORD=rootpwd
+MYSQL_PASSWORD=pwd
+白板圖
+docker tag
+
+
+docker network
+
+
+11/16
+Dockerfile 指令
+FROM <name:tag>：決定基礎 image
+COPY <src> <dest>：在 build 時將外面（src）的檔案複製到 image 中（dest）
+RUN <command>：在 build 時執行的 command
+WORKDIR：容器的工作目錄
+EXPOSE：容器提供服務的 port（僅供人看）
+VOLUME：要變成 volume 的路徑
+ENV：宣告環境變數（會保留到執行時）
+ARG：先告環境變數（僅能在 build 時使用）
+HEALTHCHECK：健康檢查
+CMD/ENTRYPOINT：容器啟動時執行的指令
+操作
+Build 出 hello-nginx:1.27 這個 image 並執行他
+
+
+
+
+
+docker build -t hello-nginx:1.27 .
+docker run --rm -it hello-nginx:1.27 bash
+
+# build with args
+docker build -t hello-nginx:1.27 --build-arg arg_message='in_cli' .
